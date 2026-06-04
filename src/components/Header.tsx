@@ -1,6 +1,7 @@
 import { isFilled } from "@prismicio/client";
 import { PrismicNextLink } from "@prismicio/next";
 import Script from "next/script";
+import Link from "next/link";
 
 import { createClient } from "@/prismicio";
 
@@ -12,7 +13,7 @@ export default async function Header() {
     <>
       <div id="shader-layer"></div>
       <header className="topbar">
-        <span>Future Storytelling Lab</span>
+        <span><a href="/">Future Storytelling Lab</a></span>
         <div>
           {menu.data.link.map((item, index) => {
             // if (!isFilled.link(item)) {

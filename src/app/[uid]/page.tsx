@@ -28,7 +28,7 @@ export async function generateMetadata({
   const page = await client.getByUID("page", uid).catch(() => notFound());
 
   return {
-    title: asText(page.data.title),
+    title: page.data.title,
     description: page.data.meta_description,
     openGraph: {
       title: page.data.meta_title ?? undefined,

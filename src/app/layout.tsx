@@ -12,7 +12,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        {children}
+        <main className="site">
+          {children}
+        </main>
       </body>
       <PrismicPreview repositoryName={repositoryName} />
     </html>
