@@ -15,6 +15,11 @@ export default function RootLayout({
         <main className="site">
           {children}
         </main>
+        <section id="contact" className="footer">
+          <span>Future Storytelling Lab</span>
+          <span>© 2026</span>
+          <span><a href="/about">About</a></span>
+        </section>
       </body>
       <PrismicPreview repositoryName={repositoryName} />
     </html>

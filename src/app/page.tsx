@@ -103,6 +103,14 @@ export default async function Home() {
       <section id="residents" className="residents reveal">
         <ResidentsCarousel title="Onderzoek" items={personItems} />
       </section>
+      <section id="programme" className="installations reveal">
+        <div className="section-head">
+          <h2>Programme</h2>
+        </div>
+        <div className="installation-list">
+          Work in progress - more soon.
+        </div>
+      </section>
     </div>
   );
 }

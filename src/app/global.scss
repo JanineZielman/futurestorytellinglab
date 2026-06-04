@@ -509,3 +509,18 @@ canvas {
     --resident-gap: 12px;
   }
 }
+
+.footer {
+  margin-top: 48px;
+  border-top: 1px solid var(--paper);
+  padding: 14px 0;
+  max-width: 98vw;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    color: inherit;
+  }
+}
