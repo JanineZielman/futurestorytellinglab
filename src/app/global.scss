@@ -70,7 +70,9 @@ canvas {
   font-size: 12px;
   z-index: 999;
   left: 1vw;
-  top: 1vw;
+  top: 0;
+  padding-top: 1vw;
+  background-color: var(--ink);
 }
 
 .topbar-brand {
@@ -116,7 +118,7 @@ canvas {
   left: 50%;
   transform: translateX(-50%);
   z-index: -1;
-  margin-top: 15%;
+  margin-top: 20%;
   top: 0;
 }
 
@@ -289,12 +291,21 @@ canvas {
   margin-top: 10vh;
   border-top: 1px solid var(--paper);
   padding-top: 18px;
+  position: relative;
+  z-index: 20;
 }
 
 .residents {
   margin-top: 10vh;
   border-top: 1px solid var(--paper);
   padding-top: 18px;
+  position: relative;
+  z-index: 10;
+}
+
+.shows.reveal,
+.shows.reveal.is-visible {
+  transform: none;
 }
 
 .residents-carousel {
@@ -404,6 +415,11 @@ canvas {
   position: relative;
 }
 
+.shows .show-row.reveal {
+  transform: none;
+  transition: opacity 760ms ease;
+}
+
 .show-row:first-child {
   border-top: none;
 }
@@ -437,7 +453,7 @@ canvas {
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms ease, transform 240ms ease;
-  z-index: 10;
+  z-index: 3000;
 }
 
 .show-row:focus-within .show-image-popover {
