@@ -1,7 +1,6 @@
 import { isFilled } from "@prismicio/client";
 import { PrismicNextLink } from "@prismicio/next";
 import Script from "next/script";
-import Link from "next/link";
 
 import { createClient } from "@/prismicio";
 
@@ -13,12 +12,18 @@ export default async function Header() {
     <>
       <div id="shader-layer"></div>
       <header className="topbar">
-        <span><a href="/">Future Storytelling Lab</a></span>
-        <div>
+        <span className="topbar-brand"><a href="/">Future Storytelling Lab</a></span>
+        <input id="menu-toggle" className="menu-toggle" type="checkbox" aria-label="Open menu" />
+        <label htmlFor="menu-toggle" className="menu-button" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+        <nav className="topbar-links" aria-label="Primary navigation">
           {menu.data.link.map((item, index) => {
-            // if (!isFilled.link(item)) {
-            //   return null;
-            // }
+            if (!isFilled.link(item)) {
+              return null;
+            }
 
             return (
               <PrismicNextLink key={`${item.text ?? "menu-link"}-${index}`} field={item}>
@@ -26,7 +31,7 @@ export default async function Header() {
               </PrismicNextLink>
             );
           })}
-        </div>
+        </nav>
       </header>
       <Script
         src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"
@@ -180,9 +185,14 @@ export default async function Header() {
               revealTargets.forEach((el) => revealObserver.observe(el));
 
               const navLinks = document.querySelectorAll(".topbar a");
+              const menuToggle = document.getElementById("menu-toggle");
               navLinks.forEach((link) => {
                 link.addEventListener("click", (event) => {
                   const href = link.getAttribute("href") || "";
+                  if (menuToggle && "checked" in menuToggle) {
+                    menuToggle.checked = false;
+                  }
+
                   if (!href.startsWith("#")) return;
 
                   event.preventDefault();

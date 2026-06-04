@@ -73,19 +73,39 @@ canvas {
   top: 1vw;
 }
 
+.topbar-brand {
+  position: relative;
+  z-index: 1001;
+}
+
+.topbar-links {
+  display: flex;
+  align-items: center;
+}
+
+.menu-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu-button {
+  display: none;
+}
+
 .topbar a {
   color: var(--paper);
   text-decoration: none;
 }
 
-.topbar div a {
+.topbar-links a {
   margin-left: 24px;
   color: var(--paper);
   text-decoration: none;
   cursor: pointer;
 }
 
-.topbar div a:hover {
+.topbar-links a:hover {
   color: var(--muted);
 }
 
@@ -456,8 +476,96 @@ canvas {
     padding: 16px;
   }
 
+  .hero h1 {
+    font-size: 48px;
+    max-width: none;
+  }
+
+  .hero div {
+    flex-direction: column;
+
+    img {
+      height: 200px;
+    }
+  }
+
+  .hero p {
+    margin-top: 48px;
+  }
+
+  .topbar-brand {
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+
+  .status {
+    margin-top: 14px;
+  }
+
   .topbar {
+    min-height: 35px;
     margin-bottom: 11vh;
+    padding-bottom: 10px;
+  }
+
+  .menu-button {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1001;
+  }
+
+  .menu-button span {
+    width: 16px;
+    height: 1px;
+    background: var(--paper);
+    display: block;
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+
+  .topbar-links {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    display: grid;
+    gap: 4px;
+    padding: 10px;
+    // border: 1px solid rgba(239, 233, 223, 0.3);
+    background: rgba(18, 18, 18, 1);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .topbar-links a {
+    margin-left: 0;
+    padding: 8px 2px;
+  }
+
+  .menu-toggle:checked+.menu-button span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .menu-toggle:checked+.menu-button span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle:checked+.menu-button span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .menu-toggle:checked~.topbar-links {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .stripe {
