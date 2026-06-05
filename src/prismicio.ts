@@ -6,6 +6,49 @@ import {
 import { enableAutoPreviews } from "@prismicio/next";
 import sm from "../slicemachine.config.json";
 
+export const PRISMIC_LANG_COOKIE = "fsl-lang";
+export const DEFAULT_LOCALE = (
+  process.env.NEXT_PUBLIC_PRISMIC_DEFAULT_LOCALE || "en-us"
+).toLowerCase();
+
+const configuredLocales =
+  process.env.NEXT_PUBLIC_PRISMIC_LANGUAGES?.split(",")
+    .map((locale) => locale.trim().toLowerCase())
+    .filter(Boolean) ?? [];
+
+const fallbackLocales = ["en-us", "nl-nl"];
+
+export const LOCALES =
+  configuredLocales.length === 2
+    ? configuredLocales
+    : configuredLocales.length === 1
+      ? [configuredLocales[0], configuredLocales[0].startsWith("en-") ? "nl-nl" : "en-us"]
+      : fallbackLocales;
+
+export function getPrismicLang(input?: string | null): string | undefined {
+  if (!input) {
+    return undefined;
+  }
+
+  const normalized = input.toLowerCase();
+
+  if (LOCALES.includes(normalized)) {
+    return normalized;
+  }
+
+  const languageOnlyMatch = LOCALES.find((locale) => locale.startsWith(`${normalized}-`));
+  if (languageOnlyMatch) {
+    return languageOnlyMatch;
+  }
+
+  return undefined;
+}
+
+export function getDefaultPrismicLang(): string {
+  const configuredDefault = getPrismicLang(DEFAULT_LOCALE);
+  return configuredDefault ?? LOCALES[0] ?? "en-us";
+}
+
 /**
  * The project's Prismic repository name.
  */

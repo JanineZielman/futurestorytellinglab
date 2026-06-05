@@ -1,21 +1,47 @@
 import { type Metadata } from "next";
 
-import { asDate, asText, isFilled } from "@prismicio/client";
+import { asDate, isFilled } from "@prismicio/client";
 import { PrismicRichText, SliceZone } from "@prismicio/react";
 
-import { createClient } from "@/prismicio";
+import { createClient, getPrismicLang } from "@/prismicio";
 import ResidentsCarousel from "@/components/ResidentsCarousel";
 import { components } from "@/slices";
 
-export default async function Home() {
+type SearchParams = { lang?: string };
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const params = await searchParams;
+  const lang = getPrismicLang(params.lang);
   const client = createClient();
-  const home = await client.getByUID("page", "home");
-  const agenda = await client.getAllByType("now", {
+  const home = await client
+    .getByUID("page", "home", lang ? { lang } : undefined)
+    .catch(async () => client.getByUID("page", "home"));
+
+  let agenda = await client.getAllByType("now", {
+    ...(lang ? { lang } : {}),
     orderings: [{ field: "my.now.date", direction: "desc" }],
   });
-  const persons = await client.getAllByType("resident", {
+
+  if (lang && agenda.length === 0) {
+    agenda = await client.getAllByType("now", {
+      orderings: [{ field: "my.now.date", direction: "desc" }],
+    });
+  }
+
+  let persons = await client.getAllByType("resident", {
+    ...(lang ? { lang } : {}),
     orderings: [{ field: "my.resident.name", direction: "asc" }],
   });
+
+  if (lang && persons.length === 0) {
+    persons = await client.getAllByType("resident", {
+      orderings: [{ field: "my.resident.name", direction: "asc" }],
+    });
+  }
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -115,9 +141,17 @@ export default async function Home() {
   );
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}): Promise<Metadata> {
+  const params = await searchParams;
+  const lang = getPrismicLang(params.lang);
   const client = createClient();
-  const home = await client.getByUID("page", "home");
+  const home = await client
+    .getByUID("page", "home", lang ? { lang } : undefined)
+    .catch(async () => client.getByUID("page", "home"));
 
   return {
     title: home.data.title,

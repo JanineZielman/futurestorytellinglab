@@ -1,12 +1,27 @@
 import { isFilled } from "@prismicio/client";
 import { PrismicNextLink } from "@prismicio/next";
+import { cookies } from "next/headers";
 import Script from "next/script";
 
-import { createClient } from "@/prismicio";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import {
+  createClient,
+  getDefaultPrismicLang,
+  getPrismicLang,
+  LOCALES,
+  PRISMIC_LANG_COOKIE,
+} from "@/prismicio";
 
 export default async function Header() {
   const client = createClient();
-  const menu = await client.getSingle("menu");
+  const cookieStore = await cookies();
+  const lang = getPrismicLang(cookieStore.get(PRISMIC_LANG_COOKIE)?.value) ?? getDefaultPrismicLang();
+  const localizedMenu = await client.getSingle("menu", { lang }).catch(() => null);
+  const hasLocalizedLinks = localizedMenu?.data.link.some((item) => isFilled.link(item)) ?? false;
+  const menu = hasLocalizedLinks
+    ? localizedMenu
+    : await client.getSingle("menu").catch(() => null);
+  const menuLinks = menu?.data.link.filter((item) => isFilled.link(item)) ?? [];
 
   return (
     <>
@@ -20,17 +35,18 @@ export default async function Header() {
           <span></span>
         </label>
         <nav className="topbar-links" aria-label="Primary navigation">
-          {menu.data.link.map((item, index) => {
-            if (!isFilled.link(item)) {
-              return null;
-            }
-
+          {menuLinks.map((item, index) => {
             return (
               <PrismicNextLink key={`${item.text ?? "menu-link"}-${index}`} field={item}>
                 {item.text ?? "Link"}
               </PrismicNextLink>
             );
           })}
+          <LanguageSwitcher
+            currentLocale={lang}
+            supportedLocales={LOCALES}
+            cookieName={PRISMIC_LANG_COOKIE}
+          />
         </nav>
       </header>
       <Script

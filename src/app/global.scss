@@ -111,6 +111,38 @@ canvas {
   color: var(--muted);
 }
 
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 20px;
+  padding-left: 14px;
+  border-left: 1px solid rgba(239, 233, 223, 0.35);
+}
+
+.topbar-links .language-switcher-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  // min-width: 32px;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  color: var(--paper-soft);
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  margin: 0;
+}
+
+.topbar-links .language-switcher-link.active {
+  border-color: rgba(239, 233, 223, 0.6);
+  color: var(--paper);
+}
+
+.topbar-links .language-switcher-link:hover {
+  border-color: rgba(239, 233, 223, 0.6);
+}
+
 .hero {
   width: fit-content;
   min-height: 80vh;
@@ -547,7 +579,7 @@ canvas {
 
   .topbar-links {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 1px);
     left: 0;
     right: 0;
     display: grid;
@@ -564,6 +596,13 @@ canvas {
   .topbar-links a {
     margin-left: 0;
     padding: 8px 2px;
+  }
+
+  .language-switcher {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+    margin-top: 6px;
   }
 
   .menu-toggle:checked+.menu-button span:nth-child(1) {
