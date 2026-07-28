@@ -3,5 +3,10 @@
 import dynamic from "next/dynamic";
 
 export const components = {
+  columns: dynamic(() => import("./Columns")),
+  embed: dynamic(() => import("./Embed")),
+  image: dynamic(() => import("./Image")),
+  line: dynamic(() => import("./Line")),
   rich_text: dynamic(() => import("./RichText")),
+  slider: dynamic(() => import("./Slider")),
 };

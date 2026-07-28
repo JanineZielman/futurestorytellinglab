@@ -6,6 +6,7 @@ import { PrismicRichText, SliceZone } from "@prismicio/react";
 import { createClient, getPrismicLang } from "@/prismicio";
 import ResidentsCarousel from "@/components/ResidentsCarousel";
 import { components } from "@/slices";
+import { PrismicNextLink } from "@prismicio/next";
 
 type SearchParams = { lang?: string };
 
@@ -48,6 +49,7 @@ export default async function Home({
 
   const personItems = persons.map((person) => ({
     id: person.id,
+    uid: person.uid,
     name: person.data.name?.trim() ? person.data.name : "Unnamed person",
     category: (person.data as { category?: string | null }).category,
     text: person.data.text,
@@ -95,24 +97,26 @@ export default async function Home({
             const locationLabel = data.location?.trim() ? data.location : "Location TBA";
 
             return (
-              <div key={item.id} className="show-row reveal">
-                <span className="label">{dateLabel}</span>
-                <span>{data.title?.trim() ? data.title : "Untitled event"}</span>
-                <span className="show-time">{timeLabel}</span>
-                <span className="show-location">{locationLabel}</span>
-                <span className={`status${isUpcoming ? " live" : ""}`}>
-                  {isUpcoming ? "Upcoming" : "Archive"}
-                </span>
-                {isFilled.image(data.image as never) && (
-                  <div className="show-image-popover" aria-hidden="true">
-                    <img
-                      src={data.image?.url ?? ""}
-                      alt={data.image?.alt ?? data.title ?? "Event image"}
-                      className="show-image"
-                    />
-                  </div>
-                )}
-              </div>
+              <PrismicNextLink href={`/agenda/${item.uid}`} key={item.id} className="show-row-link" aria-label={`View details for ${data.title?.trim() ? data.title : "Untitled event"}`}>
+                <div key={item.id} className="show-row reveal">
+                  <span className="label">{dateLabel}</span>
+                  <span>{data.title?.trim() ? data.title : "Untitled event"}</span>
+                  <span className="show-time">{timeLabel}</span>
+                  <span className="show-location">{locationLabel}</span>
+                  <span className={`status${isUpcoming ? " live" : ""}`}>
+                    {isUpcoming ? "Upcoming" : "Archive"}
+                  </span>
+                  {isFilled.image(data.image as never) && (
+                    <div className="show-image-popover" aria-hidden="true">
+                      <img
+                        src={data.image?.url ?? ""}
+                        alt={data.image?.alt ?? data.title ?? "Event image"}
+                        className="show-image"
+                      />
+                    </div>
+                  )}
+                </div>
+              </PrismicNextLink>
             );
           })}
 

@@ -99,7 +99,13 @@ interface MenuDocumentData {
 export type MenuDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<MenuDocumentData>, "menu", Lang>;
 
-type NowDocumentDataSlicesSlice = never;
+type NowDocumentDataSlicesSlice =
+  | SliderSlice
+  | LineSlice
+  | ImageSlice
+  | EmbedSlice
+  | ColumnsSlice
+  | RichTextSlice;
 
 /**
  * Content for Now documents
@@ -215,7 +221,13 @@ interface NowDocumentData {
 export type NowDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<NowDocumentData>, "now", Lang>;
 
-type PageDocumentDataSlicesSlice = RichTextSlice;
+type PageDocumentDataSlicesSlice =
+  | SliderSlice
+  | LineSlice
+  | ImageSlice
+  | ColumnsSlice
+  | EmbedSlice
+  | RichTextSlice;
 
 /**
  * Content for Page documents
@@ -309,7 +321,13 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-type ProgramDocumentDataSlicesSlice = never;
+type ProgramDocumentDataSlicesSlice =
+  | SliderSlice
+  | LineSlice
+  | ImageSlice
+  | ColumnsSlice
+  | EmbedSlice
+  | RichTextSlice;
 
 /**
  * Content for Program documents
@@ -407,7 +425,13 @@ export type ProgramDocument<Lang extends string = string> =
     Lang
   >;
 
-type ResidentDocumentDataSlicesSlice = never;
+type ResidentDocumentDataSlicesSlice =
+  | SliderSlice
+  | LineSlice
+  | ImageSlice
+  | EmbedSlice
+  | ColumnsSlice
+  | RichTextSlice;
 
 /**
  * Content for Person documents
@@ -513,6 +537,203 @@ export type AllDocumentTypes =
   | ResidentDocument;
 
 /**
+ * Item in *Columns → Default → Primary → Column*
+ */
+export interface ColumnsSliceDefaultPrimaryColumnItem {
+  /**
+   * Content field in *Columns → Default → Primary → Column*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: columns.default.primary.column[].content
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  content: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *Columns → Default → Primary*
+ */
+export interface ColumnsSliceDefaultPrimary {
+  /**
+   * Column field in *Columns → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: columns.default.primary.column[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  column: prismic.GroupField<Simplify<ColumnsSliceDefaultPrimaryColumnItem>>;
+}
+
+/**
+ * Default variation for Columns Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ColumnsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ColumnsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Columns*
+ */
+type ColumnsSliceVariation = ColumnsSliceDefault;
+
+/**
+ * Columns Shared Slice
+ *
+ * - **API ID**: `columns`
+ * - **Description**: Columns
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ColumnsSlice = prismic.SharedSlice<
+  "columns",
+  ColumnsSliceVariation
+>;
+
+/**
+ * Primary content in *Embed → Default → Primary*
+ */
+export interface EmbedSliceDefaultPrimary {
+  /**
+   * Embed field in *Embed → Default → Primary*
+   *
+   * - **Field Type**: Embed
+   * - **Placeholder**: *None*
+   * - **API ID Path**: embed.default.primary.embed
+   * - **Documentation**: https://prismic.io/docs/fields/embed
+   */
+  embed: prismic.EmbedField;
+}
+
+/**
+ * Default variation for Embed Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type EmbedSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<EmbedSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Embed*
+ */
+type EmbedSliceVariation = EmbedSliceDefault;
+
+/**
+ * Embed Shared Slice
+ *
+ * - **API ID**: `embed`
+ * - **Description**: Embed
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type EmbedSlice = prismic.SharedSlice<"embed", EmbedSliceVariation>;
+
+/**
+ * Primary content in *Image → Default → Primary*
+ */
+export interface ImageSliceDefaultPrimary {
+  /**
+   * Image field in *Image → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Caption field in *Image → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image.default.primary.caption
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  caption: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Image Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ImageSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ImageSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Image*
+ */
+type ImageSliceVariation = ImageSliceDefault;
+
+/**
+ * Image Shared Slice
+ *
+ * - **API ID**: `image`
+ * - **Description**: Image
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ImageSlice = prismic.SharedSlice<"image", ImageSliceVariation>;
+
+/**
+ * Primary content in *Line → Default → Primary*
+ */
+export interface LineSliceDefaultPrimary {
+  /**
+   * Line field in *Line → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: line.default.primary.line
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  line: prismic.BooleanField;
+}
+
+/**
+ * Default variation for Line Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type LineSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<LineSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Line*
+ */
+type LineSliceVariation = LineSliceDefault;
+
+/**
+ * Line Shared Slice
+ *
+ * - **API ID**: `line`
+ * - **Description**: Line
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type LineSlice = prismic.SharedSlice<"line", LineSliceVariation>;
+
+/**
  * Primary content in *RichText → Default → Primary*
  */
 export interface RichTextSliceDefaultPrimary {
@@ -567,6 +788,63 @@ export type RichTextSlice = prismic.SharedSlice<
   RichTextSliceVariation
 >;
 
+/**
+ * Item in *Slider → Default → Primary → Image*
+ */
+export interface SliderSliceDefaultPrimaryImageItem {
+  /**
+   * Image field in *Slider → Default → Primary → Image*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: slider.default.primary.image[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *Slider → Default → Primary*
+ */
+export interface SliderSliceDefaultPrimary {
+  /**
+   * Image field in *Slider → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: slider.default.primary.image[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  image: prismic.GroupField<Simplify<SliderSliceDefaultPrimaryImageItem>>;
+}
+
+/**
+ * Default variation for Slider Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type SliderSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<SliderSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Slider*
+ */
+type SliderSliceVariation = SliderSliceDefault;
+
+/**
+ * Slider Shared Slice
+ *
+ * - **API ID**: `slider`
+ * - **Description**: Slider
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type SliderSlice = prismic.SharedSlice<"slider", SliderSliceVariation>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -603,10 +881,32 @@ declare module "@prismicio/client" {
       ResidentDocumentData,
       ResidentDocumentDataSlicesSlice,
       AllDocumentTypes,
+      ColumnsSlice,
+      ColumnsSliceDefaultPrimaryColumnItem,
+      ColumnsSliceDefaultPrimary,
+      ColumnsSliceVariation,
+      ColumnsSliceDefault,
+      EmbedSlice,
+      EmbedSliceDefaultPrimary,
+      EmbedSliceVariation,
+      EmbedSliceDefault,
+      ImageSlice,
+      ImageSliceDefaultPrimary,
+      ImageSliceVariation,
+      ImageSliceDefault,
+      LineSlice,
+      LineSliceDefaultPrimary,
+      LineSliceVariation,
+      LineSliceDefault,
       RichTextSlice,
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,
       RichTextSliceDefault,
+      SliderSlice,
+      SliderSliceDefaultPrimaryImageItem,
+      SliderSliceDefaultPrimary,
+      SliderSliceVariation,
+      SliderSliceDefault,
     };
   }
 }

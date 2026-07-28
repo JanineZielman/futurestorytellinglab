@@ -1,0 +1,28 @@
+{
+  "id": "line",
+  "type": "SharedSlice",
+  "name": "Line",
+  "description": "Line",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "line": {
+          "type": "Boolean",
+          "config": {
+            "label": "Line",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": true
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

@@ -4,9 +4,11 @@ import { useEffect, useRef, useState } from "react";
 
 import type { RichTextField } from "@prismicio/client";
 import { PrismicRichText } from "@prismicio/react";
+import { PrismicNextLink } from "@prismicio/next";
 
 type ResidentItem = {
   id: string;
+  uid: string;
   name: string;
   category?: string | null;
   text: RichTextField;
@@ -144,14 +146,15 @@ export default function ResidentsCarousel({ title, items }: ResidentsCarouselPro
                 className={cardClassName}
                 style={{ "--reveal-delay": `${introDelay}ms` } as React.CSSProperties}
               >
-                {item.imageUrl && (
-                  <div className="resident-image-wrap">
-                    <img src={item.imageUrl} alt={item.imageAlt ?? item.name ?? "Person image"} />
-                  </div>
-                )}
-                <h3>{item.name || "Unnamed person"}</h3>
-                {/* <p>{category}</p> */}
-                <PrismicRichText field={item.text} />
+                <PrismicNextLink href={`/person/${item.uid}`} className="resident-link" aria-label={`View ${item.name}`}>
+                  {item.imageUrl && (
+                    <div className="resident-image-wrap">
+                      <img src={item.imageUrl} alt={item.imageAlt ?? item.name ?? "Person image"} />
+                    </div>
+                  )}
+                  <h3>{item.name || "Unnamed person"}</h3>
+                  <PrismicRichText field={item.text} />
+                </PrismicNextLink>
               </article>
             );
           })}
