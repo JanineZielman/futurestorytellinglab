@@ -24,9 +24,8 @@ const Slider: FC<SliderProps> = ({ slice }) => {
   const images = slice.primary.image.filter((item) => item.image);
 
   const getCardsPerView = () => {
-    if (window.innerWidth <= 700) return 1;
-    if (window.innerWidth <= 1100) return 2;
-    return 3;
+    const viewportCards = window.innerWidth <= 700 ? 1 : window.innerWidth <= 1100 ? 2 : 3;
+    return Math.min(viewportCards, images.length);
   };
 
   useEffect(() => {
