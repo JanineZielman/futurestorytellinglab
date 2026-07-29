@@ -551,6 +551,12 @@ p a {
   }
 }
 
+.line {
+  width: 100%;
+  height: 1px;
+  background: var(--paper);
+}
+
 @media (max-width: 700px) {
   .site {
     padding: 16px;
