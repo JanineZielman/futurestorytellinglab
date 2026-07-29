@@ -146,7 +146,7 @@ export default function ResidentsCarousel({ title, items }: ResidentsCarouselPro
                 className={cardClassName}
                 style={{ "--reveal-delay": `${introDelay}ms` } as React.CSSProperties}
               >
-                <PrismicNextLink href={`/person/${item.uid}`} className="resident-link" aria-label={`View ${item.name}`}>
+                <a href={`/person/${item.uid}`} className="resident-link" aria-label={`View ${item.name}`}>
                   {item.imageUrl && (
                     <div className="resident-image-wrap">
                       <img src={item.imageUrl} alt={item.imageAlt ?? item.name ?? "Person image"} />
@@ -154,7 +154,7 @@ export default function ResidentsCarousel({ title, items }: ResidentsCarouselPro
                   )}
                   <h3>{item.name || "Unnamed person"}</h3>
                   <PrismicRichText field={item.text} />
-                </PrismicNextLink>
+                </a>
               </article>
             );
           })}

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { createClient, getPrismicLang } from "@/prismicio";
-import { SliceZone } from "@prismicio/react";
+import { PrismicRichText, SliceZone } from "@prismicio/react";
 import { components } from "@/slices";
 import { PrismicNextImage } from "@prismicio/next";
 
@@ -31,7 +31,7 @@ export default async function PersonPage({
   return (
     <div className="page">
       <h1>{person.data.name}</h1>
-      <PrismicNextImage field={person.data.image} />
+      <PrismicRichText field={person.data.text} />
       <SliceZone slices={person.data.slices} components={components} />
     </div>
   );

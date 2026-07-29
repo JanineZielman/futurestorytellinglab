@@ -537,8 +537,13 @@ p a {
 
 .page {
   margin: auto;
-  margin-top: 48px;
+  margin-top: 60px;
   max-width: 900px;
+
+  h1 {
+    font-size: clamp(24px, 4vw, 40px);
+    text-transform: uppercase;
+  }
 
   img {
     max-width: 100%;
@@ -712,5 +717,244 @@ p a {
 
   a {
     color: inherit;
+  }
+}
+
+/* Slider Styles */
+.slider {
+  margin-top: 10vh;
+  border-top: 1px solid var(--paper);
+  padding-top: 18px;
+}
+
+.slider-carousel {
+  position: relative;
+  width: 100%;
+}
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slider-track {
+  display: flex;
+  gap: 16px;
+  transition: transform 420ms cubic-bezier(0.2, 0.72, 0.16, 1);
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 calc((100% - (var(--cards-per-view) - 1) * 16px) / var(--cards-per-view));
+  min-width: 0;
+}
+
+.slide-image {
+  width: 100%;
+  height: clamp(260px, 44vw, 520px);
+  object-fit: cover;
+  display: block;
+}
+
+.slider-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.slider-nav {
+  pointer-events: auto;
+  border: 1px solid var(--paper-soft);
+  background: rgba(18, 18, 18, 0.75);
+  color: var(--paper);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 180ms ease;
+
+  &:hover:not(:disabled) {
+    border-color: var(--paper);
+    color: var(--muted);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.slider-dot {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--paper-soft);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: all 180ms ease;
+
+  &:hover {
+    border-color: var(--paper);
+  }
+}
+
+.slider-dot-active {
+  background: var(--paper);
+  border-color: var(--paper);
+}
+
+/* Embed Styles */
+.embed {
+  margin-top: 10vh;
+  border-top: 1px solid var(--paper);
+  padding-top: 18px;
+}
+
+.embed-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  background: rgba(239, 233, 223, 0.05);
+}
+
+.embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Image Slice Styles */
+.image-slice {
+  margin-top: 10vh;
+  border-top: 1px solid var(--paper);
+  padding-top: 18px;
+}
+
+.image-container {
+  max-width: min(84vw, 920px);
+}
+
+.slice-image {
+  width: 100%;
+  height: clamp(260px, 44vw, 520px);
+  object-fit: cover;
+  display: block;
+}
+
+.image-caption {
+  padding: 14px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--paper-soft);
+
+  p {
+    margin: 0;
+  }
+}
+
+/* Columns Styles */
+.columns {
+  margin-top: 10vh;
+  border-top: 1px solid var(--paper);
+  padding-top: 18px;
+}
+
+.columns-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: min(84vw, 1200px);
+}
+
+.column {
+  min-width: 0;
+
+  p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--paper);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0 0 16px;
+    font-size: clamp(18px, 2.4vw, 28px);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+
+  strong {
+    color: var(--paper);
+  }
+
+  em {
+    color: var(--paper-soft);
+  }
+
+  a {
+    color: var(--muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+
+  ul,
+  ol {
+    margin: 16px 0;
+    padding-left: 24px;
+  }
+
+  li {
+    margin-bottom: 8px;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--paper);
+  }
+}
+
+@media (max-width: 700px) {
+  .columns-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .slide-image {
+    height: clamp(200px, 50vh, 400px);
+  }
+
+  .embed-container {
+    padding-bottom: 75%;
+    /* 4:3 aspect ratio on mobile */
   }
 }
