@@ -1,0 +1,61 @@
+.tool { position: relative; z-index: 1; padding: 110px 4vw 48px; color: #f5f3e6; background: #111; min-height: 100vh; font-family: Arial, Helvetica, sans-serif; }
+.tool * { box-sizing: border-box; }
+.heading { margin-bottom: 32px; border-bottom: 1px solid #444; padding-bottom: 24px; }
+.heading h1 { font-size: clamp(36px, 6vw, 76px); line-height: 1; letter-spacing: -.045em; margin: 14px 0; }
+.heading p, .stage p { font-size: 14px; line-height: 1.5; color: #c5c4bc; }
+.layout { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 4vw; align-items: start; }
+.controls fieldset { border: 0; border-top: 1px solid #444; padding: 20px 0; margin: 0; min-width: 0; }
+.controls legend { font-size: 13px; text-transform: uppercase; letter-spacing: .07em; padding-right: 14px; }
+.controls label { display: flex; flex-direction: column; gap: 8px; margin: 0 0 16px; font-size: 13px; }
+.controls select, .controls textarea { width: 100%; font: inherit; color: inherit; border: 1px solid #666; border-radius: 0; padding: 10px; background: #202020; }
+.controls textarea { resize: vertical; }
+.controls input[type=range] { width: 100%; accent-color: #ffb000; }
+.controls input[type=color] { width: 100%; height: 34px; border: 0; padding: 0; background: none; cursor: pointer; }
+.controls .check { flex-direction: row; align-items: center; }
+.colors { display: flex; gap: 12px; }
+.colors label { flex: 1; }
+.buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.buttons button { font: inherit; font-size: 12px; color: inherit; border: 1px solid #777; background: transparent; padding: 10px 12px; cursor: pointer; }
+.buttons button:hover, .buttons button[aria-pressed=true] { background: #ffb000; color: #111; border-color: #ffb000; }
+.buttons button:disabled { opacity: .4; cursor: default; }
+.controls :focus-visible { outline: 2px solid #ffb000; outline-offset: 3px; }
+.controls p { font-size: 12px; line-height: 1.5; color: #bbb; }
+.stage { position: sticky; top: 100px; display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.preview { width: 100%; display: flex; justify-content: center; background: #292929; padding: 24px; }
+.preview canvas { display: block; max-width: 100%; max-height: 75vh; width: auto; height: auto; object-fit: contain; box-shadow: 0 8px 36px #0007; touch-action: none; }
+.stage p { text-align: center; }
+@media (max-width: 800px) { .tool { padding: 100px 20px 32px; } .layout { grid-template-columns: 1fr; } .stage { position: static; grid-row: 1; } .preview { padding: 16px; } .preview canvas { max-height: 65vh; } }
+@media (prefers-reduced-motion: reduce) { .tool * { scroll-behavior: auto; } }
+
+/* The site also styles p5 canvases globally. Keep this editor in normal flow. */
+.tool.tool { display: block; width: 100%; max-width: none; margin: 0; isolation: isolate; }
+.tool .layout { display: grid; }
+.tool .controls { position: static; display: block; width: auto; height: auto; margin: 0; padding: 0; transform: none; }
+.tool .stage { position: sticky; inset: auto; top: 100px; width: auto; height: auto; margin: 0; padding: 0; transform: none; }
+.tool .preview { position: relative; display: flex; inset: auto; height: auto; overflow: hidden; margin: 0; transform: none; }
+.tool .preview canvas {
+  position: static !important;
+  inset: auto !important;
+  z-index: auto !important;
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 70vh !important;
+  transform: none !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.tool .preview canvas:active { cursor: grabbing; }
+@media (max-width: 800px) {
+  .tool .layout { grid-template-columns: minmax(0, 1fr); }
+  .tool .stage { position: static; top: auto; grid-row: 1; }
+  .tool .preview canvas { max-height: 60vh !important; }
+}
+.controls small { font-size: 11px; line-height: 1.4; color: #aaa; }
