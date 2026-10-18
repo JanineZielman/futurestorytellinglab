@@ -1,6 +1,6 @@
 import { type Metadata } from "next";
 
-import { asDate, isFilled } from "@prismicio/client";
+import { asDate, asLink, isFilled } from "@prismicio/client";
 import { PrismicRichText, SliceZone } from "@prismicio/react";
 
 import { createClient, getPrismicLang } from "@/prismicio";
@@ -21,6 +21,7 @@ export default async function Home({
   const home = await client
     .getByUID("page", "home", lang ? { lang } : undefined)
     .catch(async () => client.getByUID("page", "home"));
+  const heroVideoUrl = asLink(home.data.hero_video);
 
   let agenda = await client.getAllByType("now", {
     ...(lang ? { lang } : {}),
@@ -59,6 +60,18 @@ export default async function Home({
 
   return (
     <div className="home">
+      {heroVideoUrl && (
+        <video
+          className="hero-video"
+          src={heroVideoUrl}
+          poster={home.data.image.url ?? undefined}
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-hidden="true"
+        />
+      )}
       <section className="hero">
         <div>
           {home.data.image.url && <img src={home.data.image.url} alt={home.data.image.alt || ""} />}

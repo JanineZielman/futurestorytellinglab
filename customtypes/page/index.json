@@ -39,6 +39,13 @@
           "thumbnails": []
         }
       },
+      "hero_video": {
+        "type": "Link",
+        "config": {
+          "label": "Hero Video",
+          "select": "media"
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

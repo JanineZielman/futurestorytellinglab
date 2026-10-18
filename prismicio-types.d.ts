@@ -6,10 +6,10 @@ type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 type PickContentRelationshipFieldData<
   TRelationship extends
-    | prismic.CustomTypeModelFetchCustomTypeLevel1
-    | prismic.CustomTypeModelFetchCustomTypeLevel2
-    | prismic.CustomTypeModelFetchGroupLevel1
-    | prismic.CustomTypeModelFetchGroupLevel2,
+  | prismic.CustomTypeModelFetchCustomTypeLevel1
+  | prismic.CustomTypeModelFetchCustomTypeLevel2
+  | prismic.CustomTypeModelFetchGroupLevel1
+  | prismic.CustomTypeModelFetchGroupLevel2,
   TData extends Record<
     string,
     | prismic.AnyRegularField
@@ -37,10 +37,10 @@ type PickContentRelationshipFieldData<
     > as TGroup["id"]]: TData[TGroup["id"]] extends prismic.GroupField<
       infer TGroupData
     >
-      ? prismic.GroupField<
-          PickContentRelationshipFieldData<TGroup, TGroupData, TLang>
-        >
-      : never;
+    ? prismic.GroupField<
+      PickContentRelationshipFieldData<TGroup, TGroupData, TLang>
+    >
+    : never;
   } & // Other fields
   {
     [TFieldKey in Extract<
@@ -51,8 +51,8 @@ type PickContentRelationshipFieldData<
 
 type ContentRelationshipFieldWithData<
   TCustomType extends
-    | readonly (prismic.CustomTypeModelFetchCustomTypeLevel1 | string)[]
-    | readonly (prismic.CustomTypeModelFetchCustomTypeLevel2 | string)[],
+  | readonly (prismic.CustomTypeModelFetchCustomTypeLevel1 | string)[]
+  | readonly (prismic.CustomTypeModelFetchCustomTypeLevel2 | string)[],
   TLang extends string = string,
 > = {
   [ID in Exclude<
@@ -265,6 +265,16 @@ interface PageDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
+
+  /**
+   * Hero Video field in *Page*
+   *
+   * - **Field Type**: Link
+   * - **API ID Path**: page.hero_video
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  hero_video: prismic.LinkField;
 
   /**
    * Slice Zone field in *Page*
