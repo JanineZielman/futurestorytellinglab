@@ -60,7 +60,7 @@ export default async function Home({
 
   return (
     <div className="home">
-      {heroVideoUrl && (
+      {/* {heroVideoUrl && (
         <video
           className="hero-video"
           src={heroVideoUrl}
@@ -71,7 +71,7 @@ export default async function Home({
           playsInline
           aria-hidden="true"
         />
-      )}
+      )} */}
       <section className="hero">
         <div>
           {home.data.image.url && <img src={home.data.image.url} alt={home.data.image.alt || ""} />}
