@@ -10,6 +10,7 @@ type ResidentItem = {
   id: string;
   uid: string;
   name: string;
+  year: string | null;
   category?: string | null;
   text: RichTextField;
   imageUrl?: string | null;
@@ -152,6 +153,7 @@ export default function ResidentsCarousel({ title, items }: ResidentsCarouselPro
                       <img src={item.imageUrl} alt={item.imageAlt ?? item.name ?? "Person image"} />
                     </div>
                   )}
+                  <p className="year">{item.year}</p>
                   <h3>{item.name || "Unnamed person"}</h3>
                   <PrismicRichText field={item.text} />
                 </a>

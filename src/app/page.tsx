@@ -52,6 +52,7 @@ export default async function Home({
     id: person.id,
     uid: person.uid,
     name: person.data.name?.trim() ? person.data.name : "Unnamed person",
+    year: (person.data as { year?: string | null }).year ?? "",
     category: (person.data as { category?: string | null }).category,
     text: person.data.text,
     imageUrl: person.data.image.url,

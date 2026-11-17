@@ -28,6 +28,13 @@
           "multi": "paragraph,hyperlink,list-item,o-list-item,strong,em"
         }
       },
+      "year": {
+        "type": "Text",
+        "config": {
+          "label": "Year",
+          "placeholder": ""
+        }
+      },
       "image": {
         "type": "Image",
         "config": {

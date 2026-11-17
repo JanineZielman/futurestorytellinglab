@@ -471,6 +471,17 @@ interface ResidentDocumentData {
   text: prismic.RichTextField;
 
   /**
+   * Year field in *Person*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: resident.year
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  year: prismic.KeyTextField;
+
+  /**
    * Image field in *Person*
    *
    * - **Field Type**: Image
