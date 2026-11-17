@@ -12,6 +12,13 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
         "image": {
           "type": "Group",
           "config": {
@@ -27,6 +34,15 @@
                     "width": 1080
                   },
                   "thumbnails": []
+                }
+              },
+              "caption": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Caption",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,hyperlink,o-list-item,list-item,strong,em"
                 }
               }
             }

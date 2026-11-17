@@ -12,7 +12,6 @@
 							[
 								"image",
 								{
-									"__TYPE__": "ImageContent",
 									"origin": {
 										"id": "main",
 										"url": "https://images.unsplash.com/photo-1587614295999-6c1c13675117",
@@ -31,12 +30,33 @@
 										"background": "transparent"
 									},
 									"alt": "south",
+									"credits": null,
+									"__TYPE__": "ImageContent",
 									"thumbnails": {}
+								}
+							],
+							[
+								"caption",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Aute commodo voluptate elit duis laboris. Ex fugiat culpa nostrud incididunt sunt labore esse ut irure. Officia anim adipisicing eiusmod ipsum id veniam laborum dolore laborum Lorem ut occaecat non incididunt do."
+											}
+										}
+									]
 								}
 							]
 						]
 					}
 				]
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "frog",
+				"type": "Text"
 			}
 		},
 		"items": []

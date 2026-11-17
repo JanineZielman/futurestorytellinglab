@@ -4,6 +4,7 @@ import { type FC, useEffect, useRef, useState } from "react";
 import { type Content } from "@prismicio/client";
 import {
   PrismicImage,
+  PrismicRichText,
   type SliceComponentProps,
 } from "@prismicio/react";
 
@@ -74,6 +75,9 @@ const Slider: FC<SliderProps> = ({ slice }) => {
 
   return (
     <section className="slider reveal">
+      <div className="section-head">
+        <h2>{slice.primary.title}</h2>
+      </div>
       <div
         className="slider-carousel"
         style={{ "--cards-per-view": String(cardsPerView) } as React.CSSProperties}
@@ -91,6 +95,11 @@ const Slider: FC<SliderProps> = ({ slice }) => {
                     field={item.image}
                     className="slide-image"
                   />
+                )}
+                {item.caption && (
+                  <div className="slide-caption">
+                    <PrismicRichText field={item.caption} />
+                  </div>
                 )}
               </div>
             ))}

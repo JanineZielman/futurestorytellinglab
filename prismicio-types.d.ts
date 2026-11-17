@@ -6,10 +6,10 @@ type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 type PickContentRelationshipFieldData<
   TRelationship extends
-  | prismic.CustomTypeModelFetchCustomTypeLevel1
-  | prismic.CustomTypeModelFetchCustomTypeLevel2
-  | prismic.CustomTypeModelFetchGroupLevel1
-  | prismic.CustomTypeModelFetchGroupLevel2,
+    | prismic.CustomTypeModelFetchCustomTypeLevel1
+    | prismic.CustomTypeModelFetchCustomTypeLevel2
+    | prismic.CustomTypeModelFetchGroupLevel1
+    | prismic.CustomTypeModelFetchGroupLevel2,
   TData extends Record<
     string,
     | prismic.AnyRegularField
@@ -37,10 +37,10 @@ type PickContentRelationshipFieldData<
     > as TGroup["id"]]: TData[TGroup["id"]] extends prismic.GroupField<
       infer TGroupData
     >
-    ? prismic.GroupField<
-      PickContentRelationshipFieldData<TGroup, TGroupData, TLang>
-    >
-    : never;
+      ? prismic.GroupField<
+          PickContentRelationshipFieldData<TGroup, TGroupData, TLang>
+        >
+      : never;
   } & // Other fields
   {
     [TFieldKey in Extract<
@@ -51,8 +51,8 @@ type PickContentRelationshipFieldData<
 
 type ContentRelationshipFieldWithData<
   TCustomType extends
-  | readonly (prismic.CustomTypeModelFetchCustomTypeLevel1 | string)[]
-  | readonly (prismic.CustomTypeModelFetchCustomTypeLevel2 | string)[],
+    | readonly (prismic.CustomTypeModelFetchCustomTypeLevel1 | string)[]
+    | readonly (prismic.CustomTypeModelFetchCustomTypeLevel2 | string)[],
   TLang extends string = string,
 > = {
   [ID in Exclude<
@@ -269,12 +269,13 @@ interface PageDocumentData {
   /**
    * Hero Video field in *Page*
    *
-   * - **Field Type**: Link
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
    * - **API ID Path**: page.hero_video
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/link
+   * - **Documentation**: https://prismic.io/docs/fields/link-to-media
    */
-  hero_video: prismic.LinkField;
+  hero_video: prismic.LinkToMediaField<prismic.FieldState, never>;
 
   /**
    * Slice Zone field in *Page*
@@ -811,12 +812,32 @@ export interface SliderSliceDefaultPrimaryImageItem {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
+
+  /**
+   * Caption field in *Slider → Default → Primary → Image*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: slider.default.primary.image[].caption
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  caption: prismic.RichTextField;
 }
 
 /**
  * Primary content in *Slider → Default → Primary*
  */
 export interface SliderSliceDefaultPrimary {
+  /**
+   * Title field in *Slider → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: slider.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
   /**
    * Image field in *Slider → Default → Primary*
    *
